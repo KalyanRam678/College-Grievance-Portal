@@ -1,0 +1,74 @@
+<div class="auth-page">
+  <div class="auth-shell auth-shell-register">
+
+    <div class="auth-form-panel">
+      <div class="auth-form-card">
+        <h2 class="auth-heading">Create Account</h2>
+        <p class="auth-subheading">Register to start using the portal</p>
+
+        <div class="role-switch">
+          <button
+            type="button"
+            class="role-chip"
+            [ngClass]="role=='student' ? 'role-chip-active' : ''"
+            (click)="role='student'">
+            Student
+          </button>
+
+          <button
+            type="button"
+            class="role-chip"
+            [ngClass]="role=='faculty' ? 'role-chip-active' : ''"
+            (click)="role='faculty'">
+            Faculty
+          </button>
+        </div>
+
+        <div class="auth-field">
+          <label>Name</label>
+          <input type="text" placeholder="Enter your name" [(ngModel)]="name">
+        </div>
+
+        <div class="auth-field">
+          <label>Reg No / Emp ID</label>
+          <input type="text" placeholder="Enter your ID number" [(ngModel)]="idNumber">
+        </div>
+
+        <div class="auth-field">
+          <label>Email</label>
+          <input type="email" placeholder="Enter your email" [(ngModel)]="email">
+        </div>
+
+        <div class="auth-field">
+          <label>Password</label>
+          <div class="password-wrap">
+            <input
+              [type]="show ? 'text' : 'password'"
+              placeholder="Create password"
+              [(ngModel)]="password">
+            <span class="toggle-pass" (click)="toggle()">
+              {{ show ? 'Hide' : 'Show' }}
+            </span>
+          </div>
+        </div>
+
+        <button class="auth-main-btn" (click)="register()">Register</button>
+
+        <div class="auth-bottom-text">
+          Already have an account?
+          <span class="auth-link-btn" (click)="goLogin()">Login</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="auth-side auth-side-register">
+      <div class="auth-side-overlay"></div>
+      <div class="auth-side-content">
+        <h1>Join the Portal</h1>
+        <p>Submit grievances, monitor progress, and stay updated through one simple system.</p>
+        <div class="auth-side-badge">Fast • Clear • Organized</div>
+      </div>
+    </div>
+
+  </div>
+</div>

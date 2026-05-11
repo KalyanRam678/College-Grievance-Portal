@@ -1,0 +1,75 @@
+<div class="auth-page">
+  <div class="auth-shell">
+
+    <div class="auth-side auth-side-login">
+      <div class="auth-side-overlay"></div>
+      <div class="auth-side-content">
+        <h1>CUTM Grievance Portal</h1>
+        <p>Track, manage, and resolve grievances with a cleaner digital workflow.</p>
+        <div class="auth-side-badge">Student • Faculty • Admin</div>
+      </div>
+    </div>
+
+    <div class="auth-form-panel">
+      <div class="auth-form-card">
+        <h2 class="auth-heading">Welcome Back</h2>
+        <p class="auth-subheading">Login to continue</p>
+
+        <div class="role-switch">
+          <button
+            type="button"
+            class="role-chip"
+            [ngClass]="role=='student' ? 'role-chip-active' : ''"
+            (click)="role='student'">
+            Student
+          </button>
+
+          <button
+            type="button"
+            class="role-chip"
+            [ngClass]="role=='faculty' ? 'role-chip-active' : ''"
+            (click)="role='faculty'">
+            Faculty
+          </button>
+
+          <button
+            type="button"
+            class="role-chip"
+            [ngClass]="role=='admin' ? 'role-chip-active' : ''"
+            (click)="role='admin'">
+            Admin
+          </button>
+        </div>
+
+        <div class="auth-field">
+          <label>Email</label>
+          <input
+            type="email"
+            placeholder="Enter your email"
+            [(ngModel)]="email">
+        </div>
+
+        <div class="auth-field">
+          <label>Password</label>
+          <div class="password-wrap">
+            <input
+              [type]="show ? 'text' : 'password'"
+              placeholder="Enter your password"
+              [(ngModel)]="password">
+            <span class="toggle-pass" (click)="toggle()">
+              {{ show ? 'Hide' : 'Show' }}
+            </span>
+          </div>
+        </div>
+
+        <button class="auth-main-btn" (click)="login()">Login</button>
+
+        <div class="auth-bottom-text">
+          Don’t have an account?
+          <span class="auth-link-btn" (click)="goRegister()">Create Account</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

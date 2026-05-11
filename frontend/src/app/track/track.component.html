@@ -1,0 +1,109 @@
+<div class="track-page-ui">
+  <div class="track-page-overlay"></div>
+
+  <div class="track-page-container">
+    <div class="track-page-header">
+      <button class="track-back-btn" (click)="goBack()">← Back</button>
+
+      <div>
+        <h1>Complaint Tracking</h1>
+        <p>Monitor every complaint with status flow and updates</p>
+      </div>
+    </div>
+
+    <div *ngIf="user.role=='admin'" class="track-filter-bar">
+      <label>Filter by Category</label>
+      <select
+        [(ngModel)]="selectedCategory"
+        (change)="filterCategory()"
+        class="track-filter-select"
+      >
+        <option *ngFor="let c of categories">{{c}}</option>
+      </select>
+    </div>
+
+    <div *ngFor="let cat of grouped | keyvalue" class="track-category-block">
+      <div class="track-category-head">
+        <h3>{{cat.key}}</h3>
+        <span class="track-count-badge">{{cat.value.length}}</span>
+      </div>
+
+      <div class="track-card-grid">
+        <div *ngFor="let g of cat.value" class="track-complaint-card">
+
+          <div class="track-card-top">
+            <div>
+              <h4>{{g.title}}</h4>
+              <p class="track-desc">{{g.description}}</p>
+            </div>
+
+            <span
+              class="track-status-badge"
+              [ngClass]="{
+                'pending':g.status=='Pending',
+                'progress':g.status=='In Progress',
+                'resolved':g.status=='Resolved',
+                'rejected':g.status=='Rejected'
+              }">
+              {{g.status}}
+            </span>
+          </div>
+
+          <img
+            *ngIf="g.image"
+            [src]="'http://localhost:5000/uploads/'+g.image"
+            class="track-image"
+          />
+
+          <div class="track-meta-row">
+            <p><strong>Raised By:</strong> {{g.userName}}</p>
+            <p><strong>ID:</strong> {{g.userId}}</p>
+          </div>
+
+          <div class="status-flow">
+            <div class="status-step" [ngClass]="g.status=='Pending' || g.status=='In Progress' || g.status=='Resolved' || g.status=='Rejected' ? 'active-step' : ''">
+              <div class="step-dot"></div>
+              <span>Pending</span>
+            </div>
+
+            <div class="status-step" [ngClass]="g.status=='In Progress' || g.status=='Resolved' ? 'active-step' : ''">
+              <div class="step-dot"></div>
+              <span>In Progress</span>
+            </div>
+
+            <div class="status-step" [ngClass]="g.status=='Resolved' ? 'active-step' : ''">
+              <div class="step-dot"></div>
+              <span>Resolved</span>
+            </div>
+          </div>
+
+          <div class="track-timeline">
+            <div
+              class="track-timeline-item"
+              *ngFor="let u of (g.updates || []).slice().reverse()">
+              <div class="track-timeline-dot"></div>
+              <div class="track-timeline-content">
+                <p>{{u.note}}</p>
+                <span>{{u.date}}</span>
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="user.role=='admin'" class="track-admin-actions">
+            <button class="track-action-btn" (click)="update(g._id,'In Progress')">
+              In Progress
+            </button>
+
+            <button class="track-action-btn success-btn" (click)="update(g._id,'Resolved')">
+              Resolve
+            </button>
+
+            <button class="track-action-btn danger-btn" (click)="update(g._id,'Rejected')">
+              Reject
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

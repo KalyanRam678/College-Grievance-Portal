@@ -1,0 +1,81 @@
+<div class="report-page-ui">
+  <div class="report-page-overlay"></div>
+
+  <div class="report-ui-shell">
+    <div class="report-ui-side">
+      <div class="report-ui-side-content">
+        <span class="report-ui-pill">New Grievance</span>
+        <h1>Raise Your Concern Clearly</h1>
+        <p>
+          Submit complaint details in a structured way so the issue can be tracked,
+          reviewed, and resolved faster.
+        </p>
+      </div>
+    </div>
+
+    <div class="report-ui-card">
+      <button class="report-ui-back-btn" (click)="goBack()">← Back</button>
+
+      <h2 class="report-ui-title">New Submission</h2>
+      <p class="report-ui-subtitle">Fill all complaint details carefully</p>
+
+      <div class="report-ui-form-group">
+        <label>Subject</label>
+        <input
+          [(ngModel)]="title"
+          type="text"
+          placeholder="Enter complaint subject"
+          class="report-ui-input"
+        />
+      </div>
+
+      <div class="report-ui-form-group">
+        <label>Category</label>
+        <select
+          required
+          [(ngModel)]="category"
+          class="report-ui-select"
+        >
+          <option value="">Select Category</option>
+          <option>Academic</option>
+          <option>Hostel</option>
+          <option>Examination</option>
+          <option>Infrastructure</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div class="report-ui-form-group">
+        <label>Details</label>
+        <textarea
+          [(ngModel)]="description"
+          rows="5"
+          placeholder="Describe your grievance clearly"
+          class="report-ui-textarea"
+        ></textarea>
+      </div>
+
+      <div class="report-upload-card">
+        <label for="imageUpload" class="report-upload-label">
+          Upload Image (Optional)
+        </label>
+
+        <input
+          id="imageUpload"
+          type="file"
+          accept="image/*"
+          class="report-upload-input"
+          (change)="onFileSelect($event)"
+        />
+
+        <p class="report-upload-note">PNG, JPG or JPEG supported</p>
+
+        <p class="report-file-name" *ngIf="selectedFile">
+          Selected: {{ selectedFile.name }}
+        </p>
+      </div>
+
+      <button class="report-ui-submit-btn" (click)="submit()">SUBMIT</button>
+    </div>
+  </div>
+</div>
